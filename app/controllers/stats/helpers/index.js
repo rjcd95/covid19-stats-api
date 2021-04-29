@@ -1,5 +1,9 @@
-const { getAllStatsFromApi } = require('./getAllStatsFromApi')
+const { getStatsFromApi } = require('./getStatsFromApi')
+const { doesStatsExist } = require('./doesStatsExist')
+const { deleteStats } = require('./deleteStats')
 
 module.exports = {
-    getAllStatsFromApi
+    getStatsFromApi,
+    doesStatsExist,
+    deleteStats
 }
