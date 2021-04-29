@@ -2,9 +2,11 @@ const mongoose = require('mongoose')
 
 const StatSchema = new mongoose.Schema(
   {
+    continent: {
+      type: String
+    },
     country: {
-      type: String,
-      required: true
+      type: String
     },
     cases: {
         new: {
@@ -35,6 +37,12 @@ const StatSchema = new mongoose.Schema(
       total: {
         type: Number
       }
+    },
+    day: {
+      type: Date
+    },
+    time: {
+      type: Date
     }
   }
 )
