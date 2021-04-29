@@ -44,6 +44,10 @@ const StatSchema = new mongoose.Schema(
     time: {
       type: Date
     }
+  },
+  {
+    versionKey: false,
+    timestamps: true
   }
 )
 module.exports = mongoose.model('Stats', StatSchema)
