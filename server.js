@@ -1,6 +1,7 @@
 require('dotenv-safe').config({ path: `./.env.${process.env.NODE_ENV}` })
 const express = require("express");
 const cors = require("cors");
+const initMongo = require('./app/config/mongo')
 const app = express();
 
 var corsOptions = {
@@ -20,9 +21,15 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to COVID-19 stats application." });
 });
 
+//set routes
+app.use(require('./app/routes'))
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
+
+// Init MongoDB
+initMongo()
