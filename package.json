@@ -1,0 +1,29 @@
+{
+  "name": "covid19-stats-api",
+  "version": "1.0.0",
+  "description": "API to provide and manage COVID-19 stats",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=dev node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "rest",
+    "api",
+    "covid19"
+  ],
+  "author": "rjcd95",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.5.0",
+    "mongoose": "^5.12.6"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}
