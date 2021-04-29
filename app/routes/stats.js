@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 const {
-    syncStatsData
+    syncStats
 } = require('../controllers/stats')
 
-router.get('/sync', syncStatsData)
+router.get('/sync', syncStats)
 
 module.exports = router

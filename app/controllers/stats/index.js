@@ -1,5 +1,5 @@
-const { syncStatsData } = require('./syncStatsData')
+const { syncStats } = require('./syncStats')
 
 module.exports = {
-    syncStatsData
+    syncStats
 }
