@@ -16,7 +16,7 @@ const {
  * Register route
  */
 router.post(
-    '/register',
+    '/signup',
     trimRequest.all,
     validateRegister,
     register
