@@ -1,5 +1,5 @@
 const User = require('../../../models/user')
-const { itemNotFound } = require('../../../middleware/utils')
+const { itemNotFound } = require('../../../utils')
 
 /**
  * Finds user by email
