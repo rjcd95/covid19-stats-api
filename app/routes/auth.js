@@ -4,12 +4,14 @@ const trimRequest = require('trim-request')
 
 const { 
     register,
-    login
+    login,
+    refreshToken
 } = require('../controllers/auth')
 
 const { 
     validateRegister,
-    validateLogin
+    validateLogin,
+    validateRefreshToken
 } = require('../controllers/auth/validators')
 
 /*
@@ -31,5 +33,15 @@ router.post(
     validateLogin,
     login
 )
+
+/*
+ * Refresh token
+ */
+router.get(
+    '/token',
+    trimRequest.all,
+    validateRefreshToken,
+    refreshToken
+  )
 
 module.exports = router
