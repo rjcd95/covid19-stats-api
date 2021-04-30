@@ -3,7 +3,7 @@ const Stats = require('../../models/stats')
 const { insertMany } = require('../../middleware/db')
 const {
   getStatsFromApi,
-  doesStatsExist,
+  manyStatsExist,
   deleteStats
 } = require('./helpers')
 
@@ -18,7 +18,7 @@ const processResponse = (hasBeenInserted, res) => {
 const syncStats = async (__req, res) => {
   try {
     const newStatsData = await getStatsFromApi()
-    const statsExist = await doesStatsExist()
+    const statsExist = await manyStatsExist()
     if(newStatsData.length > 0 && statsExist) {
       const hasBeenDeleted = await deleteStats();
       if(hasBeenDeleted) {

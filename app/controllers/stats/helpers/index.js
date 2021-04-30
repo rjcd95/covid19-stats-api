@@ -1,9 +1,15 @@
 const { getStatsFromApi } = require('./getStatsFromApi')
-const { doesStatsExist } = require('./doesStatsExist')
+const { getAllItemsFromDB } = require('./getAllItemsFromDB')
 const { deleteStats } = require('./deleteStats')
+const { manyStatsExist } = require('./manyStatsExist')
+const { statItemExist } = require('./statItemExist')
+const { updateStats } = require('./updateStats')
 
 module.exports = {
     getStatsFromApi,
-    doesStatsExist,
-    deleteStats
+    getAllItemsFromDB,
+    deleteStats,
+    manyStatsExist,
+    statItemExist,
+    updateStats
 }

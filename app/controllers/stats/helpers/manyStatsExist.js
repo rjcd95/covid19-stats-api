@@ -4,7 +4,7 @@ const { buildErrObject } = require('../../../utils')
 /**
  * Checks if stats exists in database
  */
-const doesStatsExist = () => {
+const manyStatsExist = () => {
   return new Promise((resolve, reject) => {
     Stats.find({}, (err, items) => {
       if (err) {
@@ -15,4 +15,4 @@ const doesStatsExist = () => {
   })
 }
 
-module.exports = { doesStatsExist }
+module.exports = { manyStatsExist }

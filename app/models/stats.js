@@ -38,12 +38,13 @@ const StatSchema = new mongoose.Schema(
         type: Number
       }
     },
-    day: {
-      type: Date
-    },
     time: {
       type: Date
     }
+  },
+  {
+    versionKey: false,
+    timestamps: true
   }
 )
 module.exports = mongoose.model('Stats', StatSchema)
