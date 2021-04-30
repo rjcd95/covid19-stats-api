@@ -7,9 +7,9 @@ const Stats = require('../../../models/stats')
  * and all of this we subtract the new Recovered Cases + New Deats (registered by the user)
  */
 const calculateActiveCases = (newData, currentData) => {
-  const currentActiveCases = currentData.cases.active || 0;
-  const currentCriticalCases = currentData.cases.critical || 0;
-  const newActiveCases = (currentActiveCases + currentCriticalCases + newData.newCases) - (newData.newDeaths + newData.recovered);
+  const currentActiveCases = parseInt(currentData.cases.active || 0);
+  const currentCriticalCases = parseInt(currentData.cases.critical || 0);
+  const newActiveCases = (newData.newCases + currentActiveCases + currentCriticalCases) - (newData.newDeaths + newData.recovered);
   return newActiveCases;
 }
 
@@ -59,14 +59,14 @@ const calculateTotalTests = (newData, currentData ) => {
 const formatDataToModel = (newData, currentData) => {
   return {
     cases: {
-      new: `+${newData.newCases}`,
+      new: (newData.newCases > 0 ? '+' : '') + newData.newCases,
       active: calculateActiveCases(newData, currentData),
       critical: newData.critical,
       recovered: calculateRecoveredCases(newData, currentData),
       total: calculateTotalCases(newData, currentData)
     },
     deaths: {
-      new: `+${newData.newDeaths}`,
+      new: (newData.newDeaths > 0 ? '+' : '') + newData.newDeaths,
       total: calculateTotalDeaths(newData, currentData)
     },
     tests: {
