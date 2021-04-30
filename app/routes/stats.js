@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const trimRequest = require('trim-request')
+require('../config/passport')
+const passport = require('passport')
+const requireAuth = passport.authenticate('jwt', {
+  session: false
+})
 
 const {
     validateGetStatsItem,
@@ -17,27 +22,38 @@ const {
 /*
  * Sync stats data route
  */
-router.get('/sync', syncStats)
+router.get(
+    '/sync',
+    requireAuth,
+    syncStats
+)
 
 /*
  * Get all items route
  */
-router.get('/', getAllStats)
+router.get(
+    '/',
+    requireAuth,
+    getAllStats
+)
 
 /*
  * Get stats item route
  */
 router.get(
     '/:id',
+    requireAuth,
     trimRequest.all,
     validateGetStatsItem,
     getStatItem
 )
+
 /*
  * Get stats item route
  */
 router.get(
     '/:id',
+    requireAuth,
     getStatItem
 )
 
@@ -46,6 +62,7 @@ router.get(
  */
 router.post(
     '/:id',
+    requireAuth,
     trimRequest.all,
     validateRegisterStats,
     registerStats
