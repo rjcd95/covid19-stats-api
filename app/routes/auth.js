@@ -15,7 +15,7 @@ const {
 } = require('../controllers/auth/validators')
 
 /*
- * Register route
+ * Signup route
  */
 router.post(
     '/signup',
@@ -39,6 +39,7 @@ router.post(
  */
 router.get(
     '/token',
+    requireAuth,
     trimRequest.all,
     validateRefreshToken,
     refreshToken
