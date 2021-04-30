@@ -38,9 +38,6 @@ const StatSchema = new mongoose.Schema(
         type: Number
       }
     },
-    day: {
-      type: Date
-    },
     time: {
       type: Date
     }
