@@ -3,9 +3,15 @@ const router = express.Router()
 const trimRequest = require('trim-request')
 
 const {
+    validateGetStatsItem,
+    validateRegisterStats,
+} = require('../controllers/stats/validators')
+
+const {
     syncStats,
     getAllStats,
     getStatItem,
+    registerStats,
 } = require('../controllers/stats')
 
 /*
@@ -23,7 +29,26 @@ router.get('/', getAllStats)
  */
 router.get(
     '/:id',
+    trimRequest.all,
+    validateGetStatsItem,
     getStatItem
+)
+/*
+ * Get stats item route
+ */
+router.get(
+    '/:id',
+    getStatItem
+)
+
+/*
+ * Register new cases and update totals
+ */
+router.post(
+    '/:id',
+    trimRequest.all,
+    validateRegisterStats,
+    registerStats
 )
 
 module.exports = router
