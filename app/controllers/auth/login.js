@@ -1,6 +1,7 @@
 const { 
   findUser,
-  userIsBlocked
+  userIsBlocked,
+  checkLoginAttemptsAndBlockExpires
 } = require('./helpers')
 const { handleError } = require('../../utils')
 
@@ -15,6 +16,9 @@ const login = async (req, res) => {
     const user = await findUser(data.email)
     //Validate if user is blocked or not
     await userIsBlocked(user)
+    //Validate if the login attempts are greater than specified value
+    //and check if the blockexpires is less than now
+    await checkLoginAttemptsAndBlockExpires(user)
     console.log(user);
     res.status(200).json({msg: 'login'})
   } catch (error) {

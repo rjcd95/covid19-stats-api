@@ -4,6 +4,8 @@ const { setUserInfo } = require('./setUserInfo')
 const { returnRegisterToken } = require('./returnRegisterToken')
 const { findUser } = require('./findUser')
 const { userIsBlocked } = require('./userIsBlocked')
+const { blockIsExpired } = require('./blockIsExpired')
+const { checkLoginAttemptsAndBlockExpires } = require('./checkLoginAttemptsAndBlockExpires')
 
 module.exports = {
   generateToken,
@@ -11,5 +13,7 @@ module.exports = {
   setUserInfo,
   returnRegisterToken,
   findUser,
-  userIsBlocked
+  userIsBlocked,
+  blockIsExpired,
+  checkLoginAttemptsAndBlockExpires
 }
