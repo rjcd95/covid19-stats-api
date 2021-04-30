@@ -6,6 +6,9 @@ const { findUser } = require('./findUser')
 const { userIsBlocked } = require('./userIsBlocked')
 const { blockIsExpired } = require('./blockIsExpired')
 const { checkLoginAttemptsAndBlockExpires } = require('./checkLoginAttemptsAndBlockExpires')
+const { blockUser } = require('./blockUser')
+const { passwordsDoNotMatch } = require('./passwordsDoNotMatch')
+const { saveLoginAttemptsToDB } = require('./saveLoginAttemptsToDB')
 
 module.exports = {
   generateToken,
@@ -15,5 +18,8 @@ module.exports = {
   findUser,
   userIsBlocked,
   blockIsExpired,
-  checkLoginAttemptsAndBlockExpires
+  checkLoginAttemptsAndBlockExpires,
+  blockUser,
+  passwordsDoNotMatch,
+  saveLoginAttemptsToDB
 }
