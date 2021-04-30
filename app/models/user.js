@@ -28,9 +28,6 @@ const UserSchema = new mongoose.Schema(
       enum: ['admin', 'admin'],
       default: 'admin'
     },
-    verification: {
-      type: String
-    },
     loginAttempts: {
       type: Number,
       default: 0,

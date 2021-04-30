@@ -2,7 +2,10 @@ const {
   findUser,
   userIsBlocked,
   checkLoginAttemptsAndBlockExpires,
-  passwordsDoNotMatch
+  passwordsDoNotMatch,
+  getUserToken,
+  saveLoginAttemptsToDB,
+  setUserInfo
 } = require('./helpers')
 const { handleError } = require('../../utils')
 const { checkPassword } = require('../../middleware/auth')
@@ -26,9 +29,12 @@ const login = async (req, res) => {
     if (!isPasswordMatch) {
       handleError(res, await passwordsDoNotMatch(user))
     } else {
-      console.log('Login ok');
+      // all ok, register access and return token
+      user.loginAttempts = 0
+      await saveLoginAttemptsToDB(user)
+      const userInfo = await setUserInfo(user)
+      res.status(200).json(await getUserToken(user, userInfo))
     }
-    res.status(200).json({msg: 'login'})
   } catch (error) {
     handleError(res, error)
   }

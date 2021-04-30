@@ -5,8 +5,8 @@ const { generateToken } = require('./generateToken')
  * @param {Object} item - user object that contains created id
  * @param {Object} userInfo - user object
  */
-const returnRegisterToken = (
-  { _id = '', verification = '' },
+const getUserToken = (
+  { _id = '' },
   userInfo = {}
 ) => {
   return new Promise((resolve) => {
@@ -18,4 +18,4 @@ const returnRegisterToken = (
   })
 }
 
-module.exports = { returnRegisterToken }
+module.exports = { getUserToken }

@@ -1,7 +1,7 @@
 const { 
   registerUser,
   setUserInfo,
-  returnRegisterToken
+  getUserToken
 } = require('./helpers')
 const { handleError } = require('../../utils')
 const { emailExists } = require('../../middleware/emailer')
@@ -18,7 +18,7 @@ const register = async (req, res) => {
     if (!doesEmailExists) {
       const item = await registerUser(data)
       const userInfo = await setUserInfo(item)
-      const response = await returnRegisterToken(item, userInfo)
+      const response = await getUserToken(item, userInfo)
       console.log('response', response);
       res.status(201).json(response)
     }
