@@ -1,9 +1,10 @@
 const { 
   findUser,
   userIsBlocked,
-  checkLoginAttemptsAndBlockExpires
+  checkLoginAttemptsAndBlockExpires,
 } = require('./helpers')
 const { handleError } = require('../../utils')
+const { checkPassword } = require('../../middleware/auth')
 
 /**
  * Login function called by route
@@ -19,7 +20,13 @@ const login = async (req, res) => {
     //Validate if the login attempts are greater than specified value
     //and check if the blockexpires is less than now
     await checkLoginAttemptsAndBlockExpires(user)
-    console.log(user);
+    //Check if is the correct password
+    const isPasswordMatch = await checkPassword(data.password, user)
+    if (!isPasswordMatch) {
+      console.log('Error on login');
+    } else {
+      console.log('Login ok');
+    }
     res.status(200).json({msg: 'login'})
   } catch (error) {
     handleError(res, error)
