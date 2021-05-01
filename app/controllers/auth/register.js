@@ -19,7 +19,6 @@ const register = async (req, res) => {
       const item = await registerUser(data)
       const userInfo = await setUserInfo(item)
       const response = await getUserToken(item, userInfo)
-      console.log('response', response);
       res.status(201).json(response)
     }
   } catch (error) {
