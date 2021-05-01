@@ -2,47 +2,26 @@ process.env.NODE_ENV = 'test'
 const User = require('../app/models/user')
 const faker = require('faker')
 const chai = require('chai')
-let server
 const chaiHttp = require('chai-http')
-
+const app = require('../server')
+const should = chai.should()
+chai.use(chaiHttp)
+let token = ''
+const createdID = []
+chai.use(chaiHttp)
 const loginDetails = {
   email: 'admin@admin.com',
   password: '12345'
 }
-let token = ''
-const createdID = []
-chai.use(chaiHttp)
 
 describe('*********** AUTH ***********', () => {
-  
-  beforeAll(() => {
-    server = require('../server')
-    return new Promise(resolve => {
-      const user = {
-        name: "Tester User",
-        email: "admin@admin.com",
-        password: "12345"
-      }
-      chai
-        .request(server)
-        .post('/auth/signup')
-        .set('content-type', 'application/json')
-        .send(user)
-        .then((res) => {
-          if(res.statusCode == 201) {
-            createdID.push(res.body.user._id)
-          }
-          resolve();
-        })
-    });
-  });
 
   describe('API /', () => {
     it('it should return 200', (done) => {
       chai
-        .request(server)
+        .request(app)
         .get('/')
-        .then((res) => {
+        .end((err, res) => {
           expect(res.statusCode).toBe(200)
           done()
         })
@@ -52,9 +31,9 @@ describe('*********** AUTH ***********', () => {
   describe('/GET /404url', () => {
     it('it should GET 404 url', (done) => {
       chai
-        .request(server)
+        .request(app)
         .get('/404url')
-        .then((res) => {
+        .end((err, res) => {
           expect(res.statusCode).toBe(404)
           expect(typeof res.body).toBe('object')
           done()
@@ -62,36 +41,19 @@ describe('*********** AUTH ***********', () => {
     })
   })
 
-  describe('/POST login', () => {
-    it('it should GET token', (done) => {
-      chai
-        .request(server)
-        .post('/auth/login')
-        .set('content-type', 'application/json')
-        .send(loginDetails)
-        .then((res) => {
-          expect(res.statusCode).toBe(200)
-          expect(typeof res.body).toBe('object')
-          expect(res.body).toHaveProperty('token')
-          token = res.body.token
-          done()
-        })
-    })
-  })
-
   describe('/POST register', () => {
-    it('it should POST register', (done) => {
-      const user = {
-        name: faker.random.words(),
-        email: faker.internet.email(),
-        password: faker.random.words()
+    it('it should POST register', (done) => {      
+      const userData = {
+        name: "Tester User",
+        email: "admin@admin.com",
+        password: "12345"
       }
       chai
-        .request(server)
+        .request(app)
         .post('/auth/signup')
         .set('content-type', 'application/json')
-        .send(user)
-        .then((res) => {
+        .send(userData)
+        .end((err, res) => {
           expect(res.statusCode).toBe(201)
           expect(typeof res.body).toBe('object')
           expect(res.body).toHaveProperty('token')
@@ -107,34 +69,52 @@ describe('*********** AUTH ***********', () => {
         password: faker.random.words()
       }
       chai
-        .request(server)
+        .request(app)
         .post('/auth/signup')
         .send(user)
-        .then((res) => {
+        .end((err, res) => {
           expect(res.statusCode).toBe(422)
           expect(typeof res.body).toBe('object')
           expect(res.body).toHaveProperty('errors')
           done()
         })
     })
+
+  describe('/POST login', () => {
+    it('it should GET token', (done) => {  
+      chai
+        .request(app)
+        .post('/auth/login')
+        .set('content-type', 'application/json')
+        .send(loginDetails)
+        .end((err, res) => {
+          expect(res.statusCode).toBe(200)
+          expect(typeof res.body).toBe('object')
+          expect(res.body).toHaveProperty('token')
+          expect(res.body).toHaveProperty('token')
+          token = res.body.token
+          done()
+        })
+    })
+  })
   })
 
   describe('/GET token', () => {
     it('it should NOT be able to consume the route since no token was sent', (done) => {
       chai
-        .request(server)
+        .request(app)
         .get('/auth/token')
-        .then((res) => {
+        .end((err, res) => {
           expect(res.statusCode).toBe(401)
           done()
         })
     })
     it('it should GET a fresh token', (done) => {
       chai
-        .request(server)
+        .request(app)
         .get('/auth/token')
         .set('Authorization', `Bearer ${token}`)
-        .then((res) => {
+        .end((err, res) => {
           expect(res.statusCode).toBe(200)
           expect(typeof res.body).toBe('object')
           expect(res.body).toHaveProperty('token')
@@ -143,15 +123,16 @@ describe('*********** AUTH ***********', () => {
     })
   })
   
-  afterAll(async () => {
-    createdID.forEach((id) => {
-      User.findByIdAndRemove(id, (err) => {
-        if (err) {
-          console.log(err)
-        }
+  describe('Remove Auth Data', () => {
+    it('it should Remove all test data', (done) => {
+      createdID.forEach((id) => {
+        User.findByIdAndRemove(id, (err) => {
+            if (err) {
+                console.log(err)
+            }
+        })
       })
+      done();
     })
-    server.close()
-    await new Promise(resolve => setTimeout(() => resolve(), 5000)); // avoid jest open handle error
   })
 })

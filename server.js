@@ -20,7 +20,9 @@ app.use(express.urlencoded({
 app.use(cors())
 app.use(passport.initialize())
 app.use(require('./app/routes'))
-app.listen(app.get('port'))
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(app.get('port'))
+}
 
 // Init MongoDB
 initMongo()
