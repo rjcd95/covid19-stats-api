@@ -4,7 +4,8 @@
   "description": "API to provide and manage COVID-19 stats",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev node server.js"
+    "start": "cross-env NODE_ENV=dev node server.js",
+    "test": "cross-env NODE_ENV=test jest --coverage --forceExit" 
   },
   "keywords": [
     "nodejs",
@@ -33,6 +34,10 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "cross-env": "^7.0.3",
+    "faker": "^5.5.3",
+    "jest": "^26.6.3"
   }
 }
