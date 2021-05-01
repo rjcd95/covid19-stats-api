@@ -1,7 +1,8 @@
 require('dotenv-safe').config({ path: `./.env.${process.env.NODE_ENV}` })
-const express = require("express");
-const cors = require("cors");
+const passport = require('passport')
 const initMongo = require('./app/config/mongo')
+const cors = require("cors");
+const express = require("express");
 const app = express();
 
 var corsOptions = {
@@ -16,20 +17,20 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT)
+
 // simple route
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to COVID-19 stats application." });
 });
 
-//set routes
+app.use(passport.initialize())
 app.use(require('./app/routes'))
 
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
-});
 
 // Init MongoDB
 initMongo()
+
+module.exports = app //only for tests
