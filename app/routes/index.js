@@ -18,7 +18,9 @@ fs.readdirSync(routesPath).filter((file) => {
  * Setup routes for index
  */
 router.get('/', (req, res) => {
-  res.render('index')
+  res.status(200).json({
+    msg: "Welcome to COVID-19 stats application."
+  })
 })
 
 /*

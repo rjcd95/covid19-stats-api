@@ -2,8 +2,8 @@ process.env.NODE_ENV = 'test'
 const User = require('../app/models/user')
 const faker = require('faker')
 const chai = require('chai')
+let server
 const chaiHttp = require('chai-http')
-const server = require('../server')
 
 const loginDetails = {
   email: 'admin@admin.com',
@@ -16,6 +16,7 @@ chai.use(chaiHttp)
 describe('*********** AUTH ***********', () => {
   
   beforeAll(() => {
+    server = require('../server')
     return new Promise(resolve => {
       const user = {
         name: "Tester User",
@@ -142,17 +143,15 @@ describe('*********** AUTH ***********', () => {
     })
   })
   
-  afterAll(() => {
-    return new Promise(resolve => {
-      createdID.forEach((id) => {
-        User.findByIdAndRemove(id, (err) => {
-          if (err) {
-            console.log(err)
-          }
-        })
+  afterAll(async () => {
+    createdID.forEach((id) => {
+      User.findByIdAndRemove(id, (err) => {
+        if (err) {
+          console.log(err)
+        }
       })
-      server.close();
-      resolve();
-    });
-  });
+    })
+    server.close()
+    await new Promise(resolve => setTimeout(() => resolve(), 5000)); // avoid jest open handle error
+  })
 })
