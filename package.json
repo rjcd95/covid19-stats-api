@@ -2,7 +2,7 @@
   "name": "covid19-stats-api",
   "version": "1.0.0",
   "description": "API to provide and manage COVID-19 stats",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=dev node server.js",
     "test": "cross-env NODE_ENV=test jest --coverage"
