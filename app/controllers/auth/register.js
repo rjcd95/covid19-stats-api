@@ -18,6 +18,7 @@ const register = async (req, res) => {
     if (!doesEmailExists) {
       const item = await registerUser(data)
       res.status(201).json({
+        id: item._id,
         msg: "User has been created successfully!"
       })
     }

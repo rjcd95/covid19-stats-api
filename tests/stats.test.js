@@ -27,9 +27,9 @@ describe('*********** STATS ***********', () => {
                 .end((err, res) => {
                     expect(res.statusCode).toBe(201)
                     expect(typeof res.body).toBe('object')
-                    expect(res.body).toHaveProperty('token')
-                    expect(res.body).toHaveProperty('user')
-                    createdID.push(res.body.user._id)
+                    expect(res.body).toHaveProperty('id')
+                    expect(res.body).toHaveProperty('msg')
+                    createdID.push(res.body.id)
                     done()
                 })
             })
@@ -49,8 +49,8 @@ describe('*********** STATS ***********', () => {
                 .end((err, res) => {
                     expect(res.statusCode).toBe(200)
                     expect(typeof res.body).toBe('object')
-                    expect(res.body).toHaveProperty('token')
-                    token = res.body.token
+                    expect(res.body).toHaveProperty('accessToken')
+                    token = res.body.accessToken
                     done()
                 })
         })
@@ -74,7 +74,7 @@ describe('*********** STATS ***********', () => {
                 .end((err, res) => {
                     expect(res.statusCode).toBe(200)
                     expect(typeof res.body).toBe('object')
-                    statsId = res.body[0]._id;
+                    statsId = res.body.docs[0].id;
                     done()
                 })
         })  
