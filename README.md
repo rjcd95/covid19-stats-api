@@ -1,6 +1,6 @@
 # Covid-19 Stats Information
 
-This is an React application that implement NodeJS API to show covid-19 statistics by country. 
+This is an API created with NodeJs + Express + MongoDb that provide stats information about covid19 in al countries.
 
 ## Features
 - Implement [Covid19 RapidApi](https://rapidapi.com/api-sports/api/covid-193) to get data
