@@ -10,9 +10,7 @@
     }
     // Sends error to user
     res.status(err.code).json({
-      errors: {
-        msg: err.message
-      }
+      msg: err.message
     })
   }
   
