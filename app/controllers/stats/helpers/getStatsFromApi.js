@@ -20,6 +20,7 @@ const formatData = (response) => {
       totalCases: item.cases.total || 0,
       newDeaths: item.deaths.new ? (item.deaths.new.replace("+", "")) : 0,
       totalDeaths: item.deaths.total || 0,
+      newTests: item.deaths.total || 0,
       totalTests: item.tests.total || 0,
       date: item.time
     }

@@ -36,6 +36,9 @@ const StatSchema = new mongoose.Schema(
     totalTests: {
       type: Number
     },
+    newTests: {
+      type: Number
+    },
     date: {
       type: Date
     }

@@ -7,8 +7,8 @@ const Stats = require('../../../models/stats')
  * and all of this we subtract the new Recovered Cases + New Deats (registered by the user)
  */
 const calculateActiveCases = (newData, currentData) => {
-  const currentActiveCases = parseInt(currentData.cases.active || 0);
-  const currentCriticalCases = parseInt(currentData.cases.critical || 0);
+  const currentActiveCases = parseInt(currentData.activeCases || 0);
+  const currentCriticalCases = parseInt(currentData.criticalCases || 0);
   const newActiveCases = (newData.newCases + currentActiveCases + currentCriticalCases) - (newData.newDeaths + newData.recovered);
   return newActiveCases;
 }
@@ -18,7 +18,7 @@ const calculateActiveCases = (newData, currentData) => {
  * current Recovered Cases + New Recovered Cases (registered by the user)
  */
 const calculateRecoveredCases = (newData, currentData) => {
-  const currentRecoveredCases = currentData.cases.recovered || 0;
+  const currentRecoveredCases = currentData.recoveredCases || 0;
   const newRecoveredCases = currentRecoveredCases + newData.recovered;
   return newRecoveredCases;
 }
@@ -28,7 +28,7 @@ const calculateRecoveredCases = (newData, currentData) => {
  * current Total Cases + New Cases (registered by the user)
  */
 const calculateTotalCases = (newData, currentData) => {
-  const currentTotalCases = currentData.cases.total || 0;
+  const currentTotalCases = currentData.totalCases || 0;
   const newTotalCases = currentTotalCases + newData.newCases;
   return newTotalCases;
 }
@@ -38,7 +38,7 @@ const calculateTotalCases = (newData, currentData) => {
  * current Total Deaths Cases + New Deaths Cases (registered by the user)
  */
 const calculateTotalDeaths = (newData, currentData) => {
-  const currentTotalDeaths = currentData.deaths.total || 0;
+  const currentTotalDeaths = currentData.totalDeaths || 0;
   const newTotalDeaths = currentTotalDeaths + newData.newDeaths;
   return newTotalDeaths;
 }
@@ -48,7 +48,7 @@ const calculateTotalDeaths = (newData, currentData) => {
  * current Total Tests + New Tests (registered by the user)
  */
 const calculateTotalTests = (newData, currentData ) => {
-  const currentTotalTests = currentData.tests.total || 0;
+  const currentTotalTests = currentData.totalTests || 0;
   const newTotalTests = currentTotalTests + newData.newTests;
   return newTotalTests;
 }
@@ -65,6 +65,7 @@ const formatDataToModel = (newData, currentData) => {
     totalCases: calculateTotalCases(newData, currentData),
     newDeaths: newData.newDeaths,
     totalDeaths: calculateTotalDeaths(newData, currentData),
+    newTests: newData.newTests,
     totalTests: calculateTotalTests(newData, currentData),
     date: new Date()
   }
