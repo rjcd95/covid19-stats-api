@@ -1,5 +1,6 @@
 const { handleError } = require('../../utils')
 const { getAllItemsFromDB } = require('./helpers')
+const { checkQueryString } = require('../../middleware/db')
 
 /**
  * Get all items function called by route
@@ -8,7 +9,8 @@ const { getAllItemsFromDB } = require('./helpers')
  */
 const getAllStats = async (req, res) => {
   try {
-    res.status(200).json(await getAllItemsFromDB())
+    let query = await checkQueryString(req.query)
+    res.status(200).json(await getAllItemsFromDB(req, query))
   } catch (error) {
     handleError(res, error)
   }
