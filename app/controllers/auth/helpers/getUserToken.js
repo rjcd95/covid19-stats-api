@@ -6,15 +6,12 @@ const { generateToken } = require('./generateToken')
  * @param {Object} userInfo - user object
  */
 const getUserToken = (
-  { _id = '' },
+  { id = '' },
   userInfo = {}
 ) => {
   return new Promise((resolve) => {
-    const data = {
-      token: generateToken(_id),
-      user: userInfo
-    }
-    resolve(data)
+    userInfo.accessToken = generateToken(id);
+    resolve(userInfo)
   })
 }
 

@@ -58,21 +58,15 @@ const calculateTotalTests = (newData, currentData ) => {
  */
 const formatDataToModel = (newData, currentData) => {
   return {
-    cases: {
-      new: (newData.newCases > 0 ? '+' : '') + newData.newCases,
-      active: calculateActiveCases(newData, currentData),
-      critical: newData.critical,
-      recovered: calculateRecoveredCases(newData, currentData),
-      total: calculateTotalCases(newData, currentData)
-    },
-    deaths: {
-      new: (newData.newDeaths > 0 ? '+' : '') + newData.newDeaths,
-      total: calculateTotalDeaths(newData, currentData)
-    },
-    tests: {
-      total: calculateTotalTests(newData, currentData)
-    },
-    time: new Date()
+    newCases: newData.newCases,
+    activeCases: calculateActiveCases(newData, currentData),
+    criticalCases: newData.critical,
+    recoveredCases: calculateRecoveredCases(newData, currentData),
+    totalCases: calculateTotalCases(newData, currentData),
+    newDeaths: newData.newDeaths,
+    totalDeaths: calculateTotalDeaths(newData, currentData),
+    totalTests: calculateTotalTests(newData, currentData),
+    date: new Date()
   }
 }
 

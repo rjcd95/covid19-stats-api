@@ -17,9 +17,9 @@ const register = async (req, res) => {
     const doesEmailExists = await emailExists(data.email)
     if (!doesEmailExists) {
       const item = await registerUser(data)
-      const userInfo = await setUserInfo(item)
-      const response = await getUserToken(item, userInfo)
-      res.status(201).json(response)
+      res.status(201).json({
+        msg: "User has been created successfully!"
+      })
     }
   } catch (error) {
     handleError(res, error)

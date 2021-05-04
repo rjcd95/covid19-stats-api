@@ -1,50 +1,47 @@
 const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2')
+
+const opts = { 
+  toJSON: { virtuals: true },
+  versionKey: false,
+  timestamps: true
+};
 
 const StatSchema = new mongoose.Schema(
   {
-    continent: {
-      type: String
-    },
     country: {
       type: String
     },
-    cases: {
-        new: {
-          type: String
-        },
-        active: {
-          type: Number
-        },
-        critical: {
-          type: String
-        },
-        recovered: {
-          type: Number
-        },
-        total: {
-          type: Number
-        }
+    newCases: {
+      type: Number
     },
-    deaths: {
-      new: {
-        type: String
-      },
-      total: {
-        type: Number
-      }
+    activeCases: {
+      type: Number
     },
-    tests: {
-      total: {
-        type: Number
-      }
+    criticalCases: {
+      type: Number
     },
-    time: {
+    recoveredCases: {
+      type: Number
+    },
+    totalCases: {
+      type: Number
+    },
+    newDeaths: {
+      type: Number
+    },
+    totalDeaths: {
+      type: Number
+    },
+    totalTests: {
+      type: Number
+    },
+    date: {
       type: Date
     }
   },
-  {
-    versionKey: false,
-    timestamps: true
-  }
+  opts
 )
+
+StatSchema.plugin(mongoosePaginate)
 module.exports = mongoose.model('Stats', StatSchema)
