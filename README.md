@@ -32,6 +32,14 @@ Install the dependencies
 ```sh
 $ npm install
 ```
+### Settings
+
+Create a .env file for dev and test enviroment and based on .env.example file, add your owns settings
+
+```sh
+touch env.dev
+touch env.test
+```
 
 ### Serve
 
